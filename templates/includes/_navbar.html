@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Thesis Product</a>
+        <a class="navbar-brand" href="/">Thesis Product</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,13 +12,15 @@
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
             </li>
-            
-          </ul>
-          <ul class='navbar-nav navbar-right'>
             {% if session.logged_in %}
-              <li class="nav-item">
-                  <a class="nav-link" href="/articles">Articles</a>
-              </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/articles">Articles</a>
+            </li>
+            {% endif %}
+          </ul>
+          <ul class='navbar-nav navbar-right'></ul>
+            {% if session.logged_in %}
+              <ul class='navbar-nav navbar-right'>
               <li class="nav-item">
                 <a class="nav-link" href="/dashboard">Dashboard</a>
               </li>   

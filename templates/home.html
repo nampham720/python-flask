@@ -2,9 +2,10 @@
 
 {% block body %}
     <div class='jumbotrom text-center'>
-        <h1>Welcome to My product</h1>
+        <h1>Welcome to my product</h1>
         <p class='lead'>This is the product for my thesis!</p>
-        
+        <h4>Author</h4>
+        <p class = 'lead'>Nam (Nam) Pham | Turku University of Applied Sciences</p>
         {% if session.logged_in == NULL %}
             <a href="/register" class="btn btn-primary btn-lg">Register</a>
             <a href="/login" class="btn btn-success btn-lg">Log in</a>
