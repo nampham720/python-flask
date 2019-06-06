@@ -1,0 +1,32 @@
+{% extends 'layout.html'%}
+
+{% block body %}
+    <h1>Result</h1>
+    
+    <th>{{article.title}}</th>
+    <table class='table'>
+        <thead class = 'thead-light'>
+            <tr>
+                <th scope="col">Method</th>
+                <th scope="col">Simlarity</th>
+            </tr>
+            <tr>
+                <td>Jaccard Similarity</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Cosine Similarity</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Word-to-vec</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Doc-to-vec</td>
+                <td></td>
+            </tr>
+        </thead> 
+    </table>
+    
+{% endblock %}

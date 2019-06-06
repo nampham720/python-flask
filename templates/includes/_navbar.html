@@ -13,20 +13,21 @@
               <a class="nav-link" href="/about">About</a>
             </li>
             {% if session.logged_in %}
-            <li class="nav-item">
-                <a class="nav-link" href="/articles">Articles</a>
-            </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/articles">Articles</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/dashboard">Dashboard</a>
+              </li>
             {% endif %}
           </ul>
-          <ul class='navbar-nav navbar-right'></ul>
+          
             {% if session.logged_in %}
               <ul class='navbar-nav navbar-right'>
-              <li class="nav-item">
-                <a class="nav-link" href="/dashboard">Dashboard</a>
-              </li>   
-              <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>
-              </li>    
+                 
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout">Logout</a>
+                </li>    
             {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="/register">Register</a>

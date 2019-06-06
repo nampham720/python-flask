@@ -5,6 +5,9 @@ from wtforms import TextAreaField, PasswordField, StringField, validators, Form
 from wtforms.validators import Required
 from passlib.hash import sha256_crypt
 from functools import wraps
+from werkzeug.utils import secure_filename
+from extract_article import *
+from checking import *
 
 
 app = Flask(__name__)
@@ -14,11 +17,13 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_DB'] = 'myflaskapp'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+#app.config['DOC_TYPES'] = ['DOC', 'DOCX', 'PDF']
 
 # initialise MYSQL
 mysql = MySQL(app)
 
 Articles = Articles()
+#Doc_extract = Doc_extract()
 
 #index
 @app.route('/')
@@ -196,25 +201,44 @@ class ArticleForm(Form):
 @is_logged_in
 def add_article():
     form = ArticleForm(request.form)
+    
+
     if request.method == 'POST' and form.validate():
-        title = form.title.data
-        body = form.body.data
+            title = form.title.data
+            body = form.body.data
 
-        #Create cursor
-        cur = mysql.connection.cursor()
+            #Create cursor
+            cur = mysql.connection.cursor()
 
-        #execute
-        cur.execute("INSERT INTO articles(title, body, authors) VALUES(%s, %s, %s)", (title, body, session['username']))
+            #execute
+            cur.execute("INSERT INTO articles(title, body, authors) VALUES(%s, %s, %s)", (title, body, session['username']))
 
-        # commit to DB
-        mysql.connection.commit()
+            # commit to DB
+            mysql.connection.commit()
 
-        #close connection
-        cur.close()
+            #close connection
+            cur.close()
 
-        flash('Article Created', 'success')
+            flash('Article Created', 'success')
+            
+            return redirect(url_for('dashboard'))
         
-        return redirect(url_for('dashboard'))
+    if request.method == 'POST' and request.files:
+        
+        #extract the data from file
+        doc = request.files['doc_uploaded']
+        extract = Extract(doc)
+        body = extract.get_info()
+        title = secure_filename(doc.filename)
+
+        #populate data to the field       
+        form.validate()
+        form.title.data = title
+        form.body.data = body
+
+        flash('File Imported Successfully', 'success')
+
+        return render_template('add_article.html', form=form)
 
     return render_template('add_article.html', form=form)
 
@@ -256,7 +280,8 @@ def edit_article(id):
         flash('Article Updated', 'success')
         
         return redirect(url_for('dashboard'))
-
+    
+    
     return render_template('edit_article.html', form=form)
 
 # delete article
@@ -275,13 +300,30 @@ def delete_article(id):
     #close connection
     cur.close()
 
-    flash('Article Delted', 'success')
+    flash('Article Deleted', 'success')
 
     return redirect(url_for('dashboard'))
 
 
+#Perform checking
+@app.route('/compare_article/<string:id>')
+@is_logged_in
+def compare_article(id):
+    #create cursor
+    cur = mysql.connection.cursor()
+
+    #execute
+    cur.execute('SELECT title FROM articles WHERE id=%s', [id])
+    
+    article = cur.fetchone()
+    
+    #close connection
+    cur.close()
+
+    return render_template('compare_article.html', article=article)
 
 
 if __name__ == '__main__':
     app.secret_key='secret123'
     app.run(debug=True)
+    

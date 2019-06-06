@@ -5,7 +5,8 @@
     <small>Written by {{article.authors}} on {{article.createdate}}</small>
     <hr>
     <div>
-        {{article.body | safe}}
+        <!--"|safe" to ignore all the html tag when displayed-->
+        {{article.body | safe}} 
     </div>
     
 {% endblock %}
