@@ -1,5 +1,5 @@
-from flask import Flask, render_template, flash, redirect, url_for, session, logging, request
-from data import Articles 
+from flask import Flask, render_template, flash, redirect, url_for, session, logging, request, Blueprint
+
 from flask_mysqldb import MySQL
 from wtforms import TextAreaField, PasswordField, StringField, validators, Form
 from wtforms.validators import Required
@@ -8,6 +8,7 @@ from functools import wraps
 from werkzeug.utils import secure_filename
 from extract_article import *
 from checking import *
+from data import file_data
 
 
 app = Flask(__name__)
@@ -22,19 +23,13 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # initialise MYSQL
 mysql = MySQL(app)
 
-Articles = Articles()
+#Articles = Articles()
 #Doc_extract = Doc_extract()
 
 #index
 @app.route('/')
 def index():
     return render_template('home.html')
-
-
-#about
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 #article
 @app.route('/articles')
@@ -50,7 +45,7 @@ def articles():
     if result > 0:
         return render_template('articles.html', articles=articles)
     else: 
-        msg = 'No Articles Foud'
+        msg = 'No Articles Found'
         return render_template('articles.html', msg=msg)
 
     #close connection
@@ -323,7 +318,21 @@ def compare_article(id):
     return render_template('compare_article.html', article=article)
 
 
+#stat
+@app.route('/stat')
+@is_logged_in
+def stat():
+    return render_template('stat.html')
+
+@app.route('/stat_graph')
+@is_logged_in
+def stat_graph():
+    return render_template('stat_graph.html')
+
 if __name__ == '__main__':
     app.secret_key='secret123'
+    #main_app = Flask(__name__)
+    #main_app.register_blueprint(file_data)
+    #main_app.run(debug=True)
     app.run(debug=True)
     

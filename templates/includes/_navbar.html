@@ -5,38 +5,47 @@
         </button>
       
         <div class="collapse navbar-collapse" id="navbarsExample02">
+          
           <ul class="navbar-nav mr-auto">
             <li>
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
-            </li>
-            {% if session.logged_in %}
+        
+          {% if session.logged_in %}
               <li class="nav-item">
                   <a class="nav-link" href="/articles">Articles</a>
               </li>
+              
               <li class="nav-item">
                   <a class="nav-link" href="/dashboard">Dashboard</a>
               </li>
-            {% endif %}
-          </ul>
-          
-            {% if session.logged_in %}
-              <ul class='navbar-nav navbar-right'>
-                 
-                <li class="nav-item">
-                  <a class="nav-link" href="/logout">Logout</a>
-                </li>    
-            {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
+
+              <li class='nav-item'>
+                <a class='nav-link' href="/stat">Statistics</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-              </li>  
-            {% endif %}
-              
+            
           </ul>
+
+          <ul class='navbar-nav navbar-right'>
+                
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>    
+          
+          
+          {% else %}
+          </ul>
+          <ul class='navbar-nav navbar-right'>
+            <li class="nav-item">
+              <a class="nav-link" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
+            </li>  
+          </ul>
+          {% endif %}
+              
+          
         </div>
       </nav>

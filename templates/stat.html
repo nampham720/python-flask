@@ -1,0 +1,133 @@
+
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>My Thesis</title>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+
+        <style>
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+          }
+
+        #myUL {
+            
+            align-items: stretch; /* Default */
+            justify-content: space-between;
+            width: 100%;
+            
+            margin: 0;
+            padding: 0;    
+
+            -webkit-column-count: 4;
+                -moz-column-count: 4;
+                    column-count: 4; 
+            }
+
+        #myUL li{
+            display: block;
+            font-size: 120%;
+            flex: 0 1 auto; /* Default */
+            list-style-type: none;
+            background: #fafafa;
+        }
+
+        </style>
+
+    </head>
+    <body>
+        {% include 'includes/_navbar.html' %}
+        <div class='container'>
+            {% include 'includes/_messages.html' %}
+            
+            <h1>Statistics</h1>
+            <p>You'll find statistics of country of Eurozone here</p>
+            <p>Interested in all countries: click here</p>
+            <p>Or else, please find for your country of interest.</p>
+
+
+            <h2>Countries</h2>
+
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+            
+            <ul id="myUL">
+                <li><a href="stat_graph" >Belgium</a></li>
+                <li><a href="#">Bulgaria</a></li>
+                
+                <li><a href="cze">Czechia</a></li>
+                <li><a href="dk">Denmark</a></li>
+                
+                <li><a href="ge">Germany (until 1990 former territory of the FRG)</a></li>
+                <li><a href="es">Estonia</a></li>
+                <li><a href="ir">Ireland</a></li>
+
+                <li><a href="gr">Greece</a></li>
+                <li><a href="sp">Spain</a></li>
+                <li><a href="fr">France</a></li>
+                <li><a href="cr">Croatia</a></li>
+                <li><a href="it">Italy</a></li>
+                <li><a href="cy">Cyprus</a></li>
+                <li><a href="la">Latvia</a></li>
+                <li><a href="li">Lithuania</a></li>
+                <li><a href="lu">Luxembourg</a></li>
+                <li><a href="hu">Hungary</a></li>
+                <li><a href="ma">Malta</a></li>
+                
+                <li><a href="ne">Netherlands</a></li>
+                <li><a href="au">Austria</a></li>
+                <li><a href="pl">Poland</a></li>
+                <li><a href="po">Portugal</a></li>
+                <li><a href="ro">Romania</a></li>
+                <li><a href="sle">Slovenkia</a></li>
+                <li><a href="sla">Slovakia</a></li>
+                <li><a href="fi">Finland</a></li>
+
+                <li><a href="sw">Sweden</a></li>
+                <li><a href="uk">United Kingdom</a></li>
+                <li><a href="ic">Iceland</a></li>
+                <li><a href="no">Norway</a></li>
+            
+            </ul>
+            
+
+        </div>
+
+        
+        <script>
+            function myFunction() {
+                var input, filter, ul, li, a, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                ul = document.getElementById("myUL");
+                li = ul.getElementsByTagName("li");
+                for (i = 0; i < li.length; i++) {
+                    a = li[i].getElementsByTagName("a")[0];
+                    txtValue = a.textContent || a.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                    } else {
+                        li[i].style.display = "none";
+                    }
+                }
+            }
+
+            
+        </script>
+
+
+        
+        <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+        <script src="//cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+        <script type='text/javascript'>
+            CKEDITOR.replace('editor')
+        </script>
+    </body>
+</html>
